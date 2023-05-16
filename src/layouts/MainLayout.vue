@@ -7,7 +7,7 @@
       <q-toolbar>
         <q-toolbar-title class="row">
           <q-avatar>
-            <q-icon name="mdi-robot-excited" size="md" />
+            <q-icon name="mdi-robot-angry" size="md" />
           </q-avatar>
           <div class="self-end">
             <span class="q-pl-sm text-weight-bold">Game</span><span class="text-grey-4">Libra</span>
