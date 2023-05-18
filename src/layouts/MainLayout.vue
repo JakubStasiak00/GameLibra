@@ -3,17 +3,19 @@
 
     <q-header bordered class="bg-transparent text-white">
 
-      <q-img src="https://asyikasyik.com/files/uploads/2018/09/header-background-indexed1.png" cover class="absolute-full" />
+      <q-img src="https://asyikasyik.com/files/uploads/2018/09/header-background-indexed1.png" cover
+        class="absolute-full" />
       <q-toolbar>
         <q-toolbar-title class="row">
           <q-avatar>
-            <q-icon name="mdi-robot-angry" size="md" />
+            <q-icon class="text-red-6" name="mdi-robot-angry" size="md" />
           </q-avatar>
           <div class="self-end">
-            <span class="q-pl-sm text-weight-bold">Game</span><span class="text-grey-4">Libra</span>
+            <span class="q-pl-sm text-weight-bold">Game</span><span class="text-red-6">Libra</span>
           </div>
 
         </q-toolbar-title>
+
 
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
       </q-toolbar>
@@ -64,7 +66,9 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top" src="https://t3.ftcdn.net/jpg/03/57/88/88/360_F_357888819_XvattGqyaKLQtZ9JfW1QVTRVTaLkItug.jpg" style="height: 100px">
+      <q-img class="absolute-top"
+        src="https://t3.ftcdn.net/jpg/03/57/88/88/360_F_357888819_XvattGqyaKLQtZ9JfW1QVTRVTaLkItug.jpg"
+        style="height: 100px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://img.freepik.com/premium-vector/gamer-mascot-logo-gaming-badge_10051-451.jpg?w=2000">
@@ -79,7 +83,8 @@
     </q-page-container>
 
     <q-footer bordered class="bg-deep-purple-10 text-white">
-      <q-img src="https://asyikasyik.com/files/uploads/2018/09/header-background-indexed1.png" cover class="absolute-full" />
+      <q-img src="https://asyikasyik.com/files/uploads/2018/09/header-background-indexed1.png" cover
+        class="absolute-full" />
 
       <q-toolbar>
         <q-toolbar-title class="text-right text-subtitle1">
