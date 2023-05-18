@@ -14,6 +14,7 @@ const routes = [
     path: '/noauth',
     component: () => import('layouts/BeforeAuth.vue'),
     children: [
+      { path: '', component: () => import('pages/Hero.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'register', component: () => import('pages/Register.vue') }
     ]
