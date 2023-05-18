@@ -13,7 +13,7 @@
             <q-input filled v-model="password" label="Password" type="password" hint="Enter your password" />
 
             <div class="row justify-center q-pt-md">
-                <q-btn label="Sign in" type="submit" color="primary" />
+                <red-button btn-text="Sign In" typer="submit" />
             </div>
 
         </q-form>
@@ -24,6 +24,7 @@
 </template>
 
 <script setup>
+import RedButton from 'src/components/RedButton.vue';
 import { ref } from 'vue';
 
     const password = ref('')

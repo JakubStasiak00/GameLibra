@@ -23,8 +23,8 @@
                 ]" />
 
             <div class="row justify-evenly q-pt-md">
-                <q-btn label="Submit" type="submit" color="primary" />
-                <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+                <red-button btn-text="Sign Up" typer="submit" />
+                <red-button btn-text="Reset" typer="reset" />
             </div>
 
         </q-form>
@@ -35,6 +35,7 @@
 </template>
 
 <script setup>
+import RedButton from 'src/components/RedButton.vue';
 import { ref } from 'vue';
 
     const username = ref('')
