@@ -1,6 +1,6 @@
 <template>
     <div class="q-pa-lg">
-        <h2 class="col-12 q-mb-sm text-center text-h3 text-bold">Meet the Game Libra</h2>
+        <h2 class="col-12 q-mb-sm text-center text-h3 text-bold" :class="$q.screen.lt.sm ? 'q-mt-none' : ''">Meet the Game Libra</h2>
         <div class="col-12 text-h6 q-mb-xl text-center"> Store all your favourite titles in one place ! </div>
 
         <div class="row col-12 col-sm-6 q-mb-xl justify-around"> 
@@ -47,4 +47,6 @@ import {useQuasar} from 'quasar'
 import RedButton from 'src/components/RedButton.vue';
 
 const $q = useQuasar()
+
+
 </script>
