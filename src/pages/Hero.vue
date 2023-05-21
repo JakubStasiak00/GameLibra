@@ -1,30 +1,30 @@
 <template>
     <div class="q-pa-lg">
-        <h2 class="col-12 q-mb-sm text-center">Meet the Game Libra</h2>
-        <div class="col-12 text-subtitle1 q-mb-xl text-center"> Store all your favourite titles in one place ! </div>
+        <h2 class="col-12 q-mb-sm text-center text-h3 text-bold">Meet the Game Libra</h2>
+        <div class="col-12 text-h6 q-mb-xl text-center"> Store all your favourite titles in one place ! </div>
 
         <div class="row col-12 col-sm-6 q-mb-xl justify-around"> 
             <q-list class="q-mx-auto">
                 <q-list-item class="text-h6">
                     <p class="flex q-ma-none q-ml-sm">
-                        <q-item-label class="q-break-word inline">
-                            <q-icon name="mdi-star" />
+                        <q-item-label class="q-break-word inline flex align-baseline no-wrap q-mb-md">
+                            <q-icon name="mdi-star" class="q-pr-sm" />
                             Add your favourite games from list of +300,000 titles !
                         </q-item-label>
                     </p>
                 </q-list-item>
                 <q-list-item class="text-h6">
                     <p class="flex q-ma-none q-ml-sm">
-                        <q-item-label>
-                            <q-icon name="mdi-star" />
+                        <q-item-label class="q-break-word inline flex align-baseline no-wrap q-mb-md">
+                            <q-icon name="mdi-star" class="q-pr-sm" />
                             Share your opinion on your favourite games through Game Libras' rating system !
                         </q-item-label>
                     </p>
                 </q-list-item>
                 <q-list-item class="text-h6">
                     <p class="flex q-ma-none q-ml-sm">
-                        <q-item-label> 
-                            <q-icon name="mdi-star" />
+                        <q-item-label class="q-break-word inline flex align-baseline no-wrap q-mb-md"> 
+                            <q-icon name="mdi-star" class="q-pr-sm" />
                             Inspire yourself to play some of the best titles featured in our top 10 list !
                         </q-item-label>
                     </p>
