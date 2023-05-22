@@ -35,8 +35,8 @@
         <div class="col-12 col-sm-6">
             <p class="text-h5 text-center">Check it out yourself !</p>
             <div class="col-12 flex justify-center items-center" :cols="{ sm: 12, md: 6 }">
-                <router-link class="q-mr-sm" to="noauth/login"><red-button btn-text="Sign in" /></router-link>
-                <router-link class="q-ml-sm" to="noauth/register"><red-button btn-text="Sign up"/></router-link>
+                <router-link class="q-mr-sm" to="login"><q-btn label="Sign In" color="primary"/></router-link>
+                <router-link class="q-ml-sm" to="register"><q-btn label="Sign Up" color="primary"/></router-link>
             </div>
         </div>
     </div>
@@ -44,7 +44,6 @@
 
 <script setup>
 import {useQuasar} from 'quasar'
-import RedButton from 'src/components/RedButton.vue';
 
 const $q = useQuasar()
 

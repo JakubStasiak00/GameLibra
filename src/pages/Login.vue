@@ -13,18 +13,17 @@
             <q-input filled v-model="password" label="Password" type="password" hint="Enter your password" />
 
             <div class="row justify-center q-pt-md">
-                <red-button btn-text="Sign In" typer="submit" />
+                <q-btn label="Sign In" type="submit" color="primary"/>
             </div>
 
         </q-form>
 
-        <p class="text-center q-mt-md">No account yet ? <router-link to="/noauth/register">Sign up</router-link></p>
+        <p class="text-center q-mt-md">No account yet ? <router-link to="/register">Sign up</router-link></p>
 
     </div>
 </template>
 
 <script setup>
-import RedButton from 'src/components/RedButton.vue';
 import { ref } from 'vue';
 
     const password = ref('')

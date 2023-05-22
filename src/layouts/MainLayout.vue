@@ -82,7 +82,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer bordered class="bg-deep-purple-10 text-white">
+    <q-footer bordered class="bg-transparent text-white">
       <q-img src="https://asyikasyik.com/files/uploads/2018/09/header-background-indexed1.png" cover
         class="absolute-full" />
 
@@ -98,6 +98,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import {db, auth} from '../firebase/main.js'
+
+console.log(db, auth)
 
 const DrawerOpen = ref(false)
 

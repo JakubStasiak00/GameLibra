@@ -23,11 +23,13 @@
                 ]" />
 
             <div class="row justify-evenly q-pt-md">
-                <red-button btn-text="Sign Up" typer="submit" />
-                <red-button btn-text="Reset" typer="reset" />
+                <q-btn label="Sign Up" type="submit" color="primary"/>
+                <q-btn label="Reset" type="reset" color="primary" flat />
             </div>
 
         </q-form>
+
+        <div class="err" v-if="error"></div>
 
         <p class="text-center q-mt-md">Already have an account ? <router-link to="/noauth/login">Sign in</router-link></p>
 
@@ -35,17 +37,16 @@
 </template>
 
 <script setup>
-import RedButton from 'src/components/RedButton.vue';
 import { ref } from 'vue';
+import { useRegister } from '../composables/userRegister'
 
     const username = ref('')
     const password = ref('')
     const email = ref('')
+    const error = ref('')
 
     const onSubmit = () => {
-        console.log('username:', username.value)
-        console.log('password:', password.value)
-        console.log('email:', email.value)
+            useRegister(email.value, password.value)
     }
 
     const onReset = () => {

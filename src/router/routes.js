@@ -1,7 +1,7 @@
 
 const routes = [
   {
-    path: '/',
+    path: '/auth',
     component: () => import('layouts/MainLayout.vue'),
     meta: { requiresAuth: true },
     children: [
@@ -11,7 +11,7 @@ const routes = [
     ]
   },
   {
-    path: '/noauth',
+    path: '/',
     component: () => import('layouts/BeforeAuth.vue'),
     children: [
       { path: '', component: () => import('pages/Hero.vue') },
