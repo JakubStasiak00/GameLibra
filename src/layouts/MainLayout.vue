@@ -71,9 +71,9 @@
         style="height: 100px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img src="https://img.freepik.com/premium-vector/gamer-mascot-logo-gaming-badge_10051-451.jpg?w=2000">
+            <img :src="userStore.user.photoURL" v-if="userStore.isLogged">
           </q-avatar>
-          <span class="text-weight-bold q-pl-md">{{ userStore.user.email }}</span>
+          <span class="text-weight-bold q-pl-md" v-if="userStore.isLogged">{{ userStore.user.displayName }}</span>
         </div>
       </q-img>
     </q-drawer>

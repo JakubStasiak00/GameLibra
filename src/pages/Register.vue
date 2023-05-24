@@ -48,7 +48,7 @@ const email = ref('')
 const err = ref('')
 
 const onSubmit = async () => {
-    await userStore.register(email.value, password.value)
+    await userStore.register(email.value, password.value, username.value)
     const { error } = userStore
 
     if(error === '') {

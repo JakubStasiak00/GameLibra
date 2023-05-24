@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from '@firebase/auth';
 import { defineStore } from 'pinia';
 import { auth } from 'src/firebase/main';
 import { ref } from 'vue';
@@ -22,10 +22,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  async function register(email, password) {
+  async function register(email, password, username) {
     try {
       error.value = ''
       let credentials = await createUserWithEmailAndPassword(auth, email, password)
+
+      await updateProfileInfo(username, 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg')
 
       user.value = credentials
       isLogged.value = true
@@ -50,6 +52,18 @@ export const useUserStore = defineStore('user', () => {
     user.value = auth.currentUser
     isLogged.value = true
   }
+
+  async function updateProfileInfo (displayName, photoURL) {
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: displayName,
+        photoURL: photoURL,
+      });
+      console.log("Profile updated successfully!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
 
   return { user, isLogged, error, login, register, logout, updateCredentials }
 })
