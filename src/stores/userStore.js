@@ -54,5 +54,10 @@ export const useUserStore = defineStore('user', () => {
       })
   }
 
-  return { user, isLogged, error, login, register, logout }
+  async function updateCredentials() {
+    user.value = auth.currentUser
+    isLogged.value = true
+  }
+
+  return { user, isLogged, error, login, register, logout, updateCredentials }
 })

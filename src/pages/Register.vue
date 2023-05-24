@@ -27,7 +27,7 @@
 
         </q-form>
 
-        <div class="text-negative q-pt-md text-center" v-if="error"> {{ error }} </div>
+        <div class="text-negative q-pt-md text-center" v-if="err"> {{ err }} </div>
 
         <p class="text-center q-mt-md">Already have an account ? <router-link to="/login">Sign in</router-link></p>
 
@@ -36,7 +36,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRegister, err } from '../composables/userRegister'
 import { useRouter } from 'vue-router';
 import { useUserStore } from 'src/stores/userStore';
 
@@ -46,16 +45,17 @@ const userStore = useUserStore()
 const username = ref('')
 const password = ref('')
 const email = ref('')
-const error = ref('')
+const err = ref('')
 
 const onSubmit = async () => {
-    userStore.user = await useRegister(email.value, password.value)
+    await userStore.register(email.value, password.value)
+    const { error } = userStore
 
-    if(!err) {
-        console.log(userStore.user)
+    if(!error) {
+        await userStore.updateCredentials()
         router.push('/auth')
     } else {
-        error.value = err
+        err.value = error
     }
 }
 

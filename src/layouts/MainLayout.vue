@@ -73,7 +73,7 @@
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://img.freepik.com/premium-vector/gamer-mascot-logo-gaming-badge_10051-451.jpg?w=2000">
           </q-avatar>
-          <span class="text-weight-bold q-pl-md">RazvanTheKing</span>
+          <span class="text-weight-bold q-pl-md">{{ userStore.user.email }}</span>
         </div>
       </q-img>
     </q-drawer>
@@ -125,7 +125,7 @@ onAuthStateChanged(auth, user => {
   if(!user) {
     router.push('/login')
   } else {
-    console.log('logged in')
+    userStore.updateCredentials()
   }
 })
 
