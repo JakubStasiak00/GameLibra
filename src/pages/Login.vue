@@ -5,18 +5,19 @@
 
         <q-form @submit="handleLogin" class="q-gutter-md">
 
-            <q-input filled v-model="email" type="email" label="E-mail" hint="Enter your e-mail" lazy-rules
-            :rules="[
+            <q-input filled v-model="email" type="email" label="E-mail" hint="Enter your e-mail" lazy-rules :rules="[
                 val => /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val) || 'E-mail adress you entered is invalid'
-                ]" />
+            ]" />
 
             <q-input filled v-model="password" label="Password" type="password" hint="Enter your password" />
 
             <div class="row justify-center q-pt-md">
-                <q-btn label="Sign In" type="submit" color="primary"/>
+                <q-btn label="Sign In" type="submit" color="primary" />
             </div>
 
         </q-form>
+
+        <div class="text-negative q-pt-md text-center" v-if="err"> {{ err }} </div>
 
         <p class="text-center q-mt-md">No account yet ? <router-link to="/register">Sign up</router-link></p>
 
@@ -25,12 +26,23 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useUserStore } from 'src/stores/userStore';
 
-    const password = ref('')
-    const email = ref('')
+const userStore = useUserStore()
+const password = ref('')
+const email = ref('')
+const err = ref('')
 
-    const handleLogin = () => {
-        console.log('logged in as', email.value)
+const handleLogin = async () => {
+    await userStore.login(email.value, password.value)
+    const { error } = userStore
+
+    if(!error) {
+        await userStore.updateCredentials()
+        router.push('/auth')
+    } else {
+        err.value = error
     }
+}
 
 </script>
