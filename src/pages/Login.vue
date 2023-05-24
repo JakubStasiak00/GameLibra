@@ -36,9 +36,11 @@ const err = ref('')
 const handleLogin = async () => {
     await userStore.login(email.value, password.value)
     const { error } = userStore
+    console.log(error)
 
-    if(!error) {
+    if(error === '') {
         await userStore.updateCredentials()
+        console.log(userStore.user)
         router.push('/auth')
     } else {
         err.value = error

@@ -15,10 +15,6 @@ export const useUserStore = defineStore('user', () => {
       error.value = ''
       let credentials = await signInWithEmailAndPassword(auth, email, password)
 
-      if (!credentials.ok) {
-        throw new Error('something went wrong')
-      }
-
       user.value = credentials
       isLogged.value = true
     } catch (err) {
@@ -30,10 +26,6 @@ export const useUserStore = defineStore('user', () => {
     try {
       error.value = ''
       let credentials = await createUserWithEmailAndPassword(auth, email, password)
-
-      if (!credentials.ok) {
-        throw new Error('something went wrong')
-      }
 
       user.value = credentials
       isLogged.value = true

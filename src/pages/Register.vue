@@ -51,7 +51,7 @@ const onSubmit = async () => {
     await userStore.register(email.value, password.value)
     const { error } = userStore
 
-    if(!error) {
+    if(error === '') {
         await userStore.updateCredentials()
         router.push('/auth')
     } else {
