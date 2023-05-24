@@ -8,10 +8,10 @@
       <q-toolbar>
         <q-toolbar-title class="row">
           <q-avatar>
-            <q-icon class="text-red-6" name="mdi-robot-angry" size="md" />
+            <q-icon class="text-red-6" name="mdi-robot-angry" size="md"  @click="goToHome" />
           </q-avatar>
-          <div class="self-end">
-            <span class="q-pl-sm text-weight-bold">Game</span><span class="text-red-6">Libra</span>
+          <div class="self-end"  @click="goToHome">
+            <span class="q-pl-xs text-weight-bold">Game</span><span class="text-red-6">Libra</span>
           </div>
 
         </q-toolbar-title>
@@ -54,7 +54,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item class="text-negative" clickable v-ripple>
+          <q-item class="text-negative" clickable v-ripple @click="handleLogout">
             <q-item-section avatar>
               <q-icon name="logout" />
             </q-item-section>
@@ -98,14 +98,37 @@
 
 <script setup>
 import { ref } from 'vue'
-import {db, auth} from '../firebase/main.js'
+import { auth } from '../firebase/main.js'
+import { useRouter } from 'vue-router';
+import { onAuthStateChanged } from '@firebase/auth';
+import { useUserStore } from '../stores/userStore'
 
-console.log(db, auth)
-
+const userStore = useUserStore()
 const DrawerOpen = ref(false)
 
 const toggleLeftDrawer = () => {
   DrawerOpen.value = !DrawerOpen.value
 }
+
+const router = useRouter()
+
+const goToHome = () => {
+    router.push('/auth')
+}
+
+const handleLogout = () => {
+  userStore.logout()
+}
+
+
+onAuthStateChanged(auth, user => {
+  if(!user) {
+    router.push('/login')
+  } else {
+    console.log('logged in')
+  }
+})
+
+
 
 </script>

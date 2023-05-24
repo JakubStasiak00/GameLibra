@@ -10,8 +10,8 @@
                     <q-avatar>
                         <q-icon class="text-red-6" name="mdi-robot-angry" size="md" @click="goToHome" />
                     </q-avatar>
-                    <div class="self-end">
-                        <span @click="goToHome" class="q-pl-sm text-weight-bold">Game</span><span class="text-red-6">Libra</span>
+                    <div class="self-end" @click="goToHome">
+                        <span class="q-pl-xs text-weight-bold">Game</span><span class="text-red-6">Libra</span>
                     </div>
                 </q-toolbar-title>
             </q-toolbar>
@@ -36,11 +36,19 @@
 </template>
 
 <script setup>
-    import { useRouter } from 'vue-router';
+import { onAuthStateChanged } from '@firebase/auth';
+import { useRouter } from 'vue-router';
+import { auth } from 'src/firebase/main';
 
-    const router = useRouter()
+const router = useRouter()
 
-    const goToHome = () => {
-        router.push('/noauth')
+const goToHome = () => {
+    router.push('/')
+}
+
+onAuthStateChanged(auth, user => {
+    if (user) {
+        router.push('/auth')
     }
+})
 </script>

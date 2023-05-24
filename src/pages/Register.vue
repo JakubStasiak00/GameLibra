@@ -5,53 +5,63 @@
 
         <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
 
-            <q-input filled v-model="username" label="Username" hint="Enter your username" lazy-rules
-            :rules="[
+            <q-input filled v-model="username" label="Username" hint="Enter your username" lazy-rules :rules="[
                 val => val.length >= 3 || 'Username should include at elast 3 characters',
                 val => val.length <= 16 || 'Username should incude 16 characters or less',
                 val => /^[a-zA-Z0-9_]+$/.test(val) || 'Username should only use letters, numbers and underscore'
-                ]" />
+            ]" />
 
             <q-input filled v-model="password" label="Password" type="password" hint="Enter your password" lazy-rules
-            :rules="[
-                val => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/.test(val) || 'Password should contain at least one number, uppercase and lowercase letter, is should also be 8 to 30 characters long'
+                :rules="[
+                    val => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/.test(val) || 'Password should contain at least one number, uppercase and lowercase letter, is should also be 8 to 30 characters long'
                 ]" />
 
-            <q-input filled v-model="email" type="email" label="E-mail" hint="Enter your e-mail" lazy-rules
-            :rules="[
+            <q-input filled v-model="email" type="email" label="E-mail" hint="Enter your e-mail" lazy-rules :rules="[
                 val => /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val) || 'E-mail adress you entered is invalid'
-                ]" />
+            ]" />
 
             <div class="row justify-evenly q-pt-md">
-                <q-btn label="Sign Up" type="submit" color="primary"/>
+                <q-btn label="Sign Up" type="submit" color="primary" />
                 <q-btn label="Reset" type="reset" color="primary" flat />
             </div>
 
         </q-form>
 
-        <div class="err" v-if="error"></div>
+        <div class="text-negative q-pt-md text-center" v-if="error"> {{ error }} </div>
 
-        <p class="text-center q-mt-md">Already have an account ? <router-link to="/noauth/login">Sign in</router-link></p>
+        <p class="text-center q-mt-md">Already have an account ? <router-link to="/login">Sign in</router-link></p>
 
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useRegister } from '../composables/userRegister'
+import { useRegister, err } from '../composables/userRegister'
+import { useRouter } from 'vue-router';
+import { useUserStore } from 'src/stores/userStore';
 
-    const username = ref('')
-    const password = ref('')
-    const email = ref('')
-    const error = ref('')
+const router = useRouter()
+const userStore = useUserStore()
 
-    const onSubmit = () => {
-            useRegister(email.value, password.value)
+const username = ref('')
+const password = ref('')
+const email = ref('')
+const error = ref('')
+
+const onSubmit = async () => {
+    userStore.user = await useRegister(email.value, password.value)
+
+    if(!err) {
+        console.log(userStore.user)
+        router.push('/auth')
+    } else {
+        error.value = err
     }
+}
 
-    const onReset = () => {
-        username.value = ''
-        password.value = ''
-        email.value = ''
-    }
+const onReset = () => {
+    username.value = ''
+    password.value = ''
+    email.value = ''
+}
 </script>
