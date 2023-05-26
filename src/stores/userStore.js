@@ -54,6 +54,8 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function updateProfileInfo(displayName, photoURL) {
+    error.value = ''
+    
     let newName = ''
     let newImage = ''
 
@@ -69,15 +71,14 @@ export const useUserStore = defineStore('user', () => {
       newImage = photoURL
     }
 
-
     try {
       await updateProfile(auth.currentUser, {
         displayName: newName,
         photoURL: newImage,
       });
       console.log("Profile updated successfully!");
-    } catch (error) {
-      console.error("Error updating profile:", error);
+    } catch (err) {
+      error.value = err.message
     }
   };
 

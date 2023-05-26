@@ -35,15 +35,39 @@
 <script setup>
 import { ref } from 'vue';
 import {useUserStore} from '../stores/userStore'
+import { useQuasar } from 'quasar'
 
 
 const imageURL = ref('')
 const username = ref('')
 const userStore = useUserStore()
+let currentMessage = 'Changes Saved'
+
+const $q = useQuasar()
+
+const showNotif = () => {
+  $q.notify({
+    message: currentMessage,
+    color: 'red-6',
+    timeout: 1000,
+    position: 'top'
+  })
+}
 
 const handleSettingsChange = async () => {
     console.log(username.value, imageURL.value)
     await userStore.updateProfileInfo(username.value, imageURL.value)
+    const { error } = userStore
+
+    if(error !== '') {
+        currentMessage = error
+    } else {
+        currentMessage = 'Changes Saved'
+    }
+
+    username.value = ''
+    imageURL.value = ''
+    showNotif()
 }
 
 </script>
