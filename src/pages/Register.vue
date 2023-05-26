@@ -6,7 +6,7 @@
         <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
 
             <q-input filled v-model="username" label="Username" hint="Enter your username" lazy-rules :rules="[
-                val => val.length >= 3 || 'Username should include at elast 3 characters',
+                val => val.length >= 3 || 'Username should include at least 3 characters',
                 val => val.length <= 16 || 'Username should incude 16 characters or less',
                 val => /^[a-zA-Z0-9_]+$/.test(val) || 'Username should only use letters, numbers and underscore'
             ]" />

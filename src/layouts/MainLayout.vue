@@ -24,7 +24,7 @@
     <q-drawer v-model="DrawerOpen" side="right" overlay behavior="mobile">
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 100px; border-right: 1px solid #ddd">
         <q-list>
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple @click="goToHome">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -34,7 +34,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple @click="goToTopTen">
             <q-item-section avatar>
               <q-icon name="emoji_events" />
             </q-item-section>
@@ -44,7 +44,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple @click="goToSettings">
             <q-item-section avatar>
               <q-icon name="settings" />
             </q-item-section>
@@ -114,6 +114,14 @@ const router = useRouter()
 
 const goToHome = () => {
     router.push('/auth')
+}
+
+const goToTopTen = () => {
+    router.push('/auth/topten')
+}
+
+const goToSettings = () => {
+    router.push('/auth/settings')
 }
 
 const handleLogout = () => {

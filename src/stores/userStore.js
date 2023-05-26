@@ -53,11 +53,27 @@ export const useUserStore = defineStore('user', () => {
     isLogged.value = true
   }
 
-  async function updateProfileInfo (displayName, photoURL) {
+  async function updateProfileInfo(displayName, photoURL) {
+    let newName = ''
+    let newImage = ''
+
+    if(!displayName){
+      newName = user.displayName
+    } else {
+      newName = displayName
+    } 
+
+    if(!photoURL){
+      newImage = user.photoURL
+    } else {
+      newImage = photoURL
+    }
+
+
     try {
       await updateProfile(auth.currentUser, {
-        displayName: displayName,
-        photoURL: photoURL,
+        displayName: newName,
+        photoURL: newImage,
       });
       console.log("Profile updated successfully!");
     } catch (error) {
@@ -65,5 +81,5 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  return { user, isLogged, error, login, register, logout, updateCredentials }
+  return { user, isLogged, error, login, register, logout, updateCredentials, updateProfileInfo }
 })
