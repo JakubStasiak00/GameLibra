@@ -7,11 +7,15 @@
         </q-card-section>
       </q-card>
 
-      <q-card class="card xs-col-12 sm-col-6 md-col-4 lg-col-3" v-for="game in games" :key="n" style="width:250px;">
+      <q-card class="card xs-col-12 sm-col-6 md-col-4 lg-col-3" v-for="game in games" :key="game" style="width:250px;">
         <q-img :src="game.background_image" cover class="absolute-full" />
+        <q-btn @click="deleteGame(game)" flat rounded size="md" class="q-px-sm absolute text-white" icon="close" style="z-index: 10;" />
         <q-card-section>
-          <q-badge color="primary" floating class="top-right q-pa-sm" style="border-radius: 1000px;">
-            <div class="circle">{{ game.metacritic }}</div>
+          <q-badge color="primary" floating class="q-pa-sm" style="border-radius: 1000px; aspect-ratio: 1/1;">
+            <div v-if="game.metacritic">{{ game.metacritic }}</div>
+            <div v-else>
+              <q-icon name="remove"></q-icon>
+            </div>
           </q-badge>
         </q-card-section>
         <q-card-section>
@@ -70,7 +74,7 @@
 import { ref } from 'vue';
 import { useGameAPI } from '../composables/getGameFromAPI'
 import { db } from 'src/firebase/main';
-import { collection, doc, getDoc, onSnapshot, setDoc } from '@firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, onSnapshot, setDoc } from '@firebase/firestore';
 import { useUserStore } from 'src/stores/userStore';
 import { watchEffect } from 'vue';
 
@@ -140,6 +144,16 @@ const addingGame = async () => {
   }
 }
 
+const deleteGame = async game => {
+  let libraryRef = gettingLibraryReference()
+
+  try {
+    deleteDoc(doc(libraryRef, game.slug))
+  } catch (err) {
+    console.log(err.message)
+  }
+}
+
 watchEffect(async () => {
   if (userStore.isLogged) {
     const unsubscribe = onSnapshot(await gettingLibraryReference(), snapshot => {
@@ -161,4 +175,5 @@ watchEffect(async () => {
   justify-content: center;
   align-items: center;
 }
+
 </style>
