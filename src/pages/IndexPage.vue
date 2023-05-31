@@ -139,6 +139,8 @@ const addingGame = async () => {
 
     await setDoc(docRef, gameProps)
 
+    addGames.value = false
+
   } catch (err) {
     error.value = err.message
   }

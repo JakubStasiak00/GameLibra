@@ -87,7 +87,7 @@
         class="absolute-full" />
 
       <q-toolbar>
-        <q-toolbar-title class="text-right text-subtitle1">
+        <q-toolbar-title class="text-right text-subtitle2">
           Copyright Vue Jacob
         </q-toolbar-title>
       </q-toolbar>
