@@ -1,8 +1,8 @@
 <template>
   <div class="q-pa-md">
     <div class="row q-gutter-md q-col-lg-3 justify-center">
-      <q-card class="card xs-col-12 sm-col-6 md-col-4 lg-col-3" style="width: 250px;">
-        <q-card-section class="flex custom-center">
+      <q-card class="card xs-col-12 sm-col-6 md-col-4 lg-col-3 flex custom-center" style="width: 250px;">
+        <q-card-section>
           <q-btn flat @click="handleAddingGame">Add Game</q-btn>
         </q-card-section>
       </q-card>
@@ -29,6 +29,10 @@
     <q-card style="min-width: 300px;">
       <q-card-section>
         <div class="text-h6 text-red-6">Add Game</div>
+      </q-card-section>
+
+      <q-card-section v-if="error">
+        {{ error }}
       </q-card-section>
 
       <q-card-section>
@@ -66,7 +70,7 @@
 import { ref } from 'vue';
 import { useGameAPI } from '../composables/getGameFromAPI'
 import { db } from 'src/firebase/main';
-import { addDoc, collection, doc, onSnapshot } from '@firebase/firestore';
+import { collection, doc, getDoc, onSnapshot, setDoc } from '@firebase/firestore';
 import { useUserStore } from 'src/stores/userStore';
 import { watchEffect } from 'vue';
 
@@ -75,6 +79,7 @@ const userStore = useUserStore()
 const addGames = ref(false)
 const gameToFind = ref('')
 const foundGame = ref(null)
+const error = ref('')
 
 const games = ref([])
 
@@ -83,6 +88,8 @@ const handleAddingGame = () => {
 }
 
 const searchGame = async () => {
+  error.value = ''
+
   const game = gameToFind.value.trim().replace(/\s+/g, "-")
 
   const response = await useGameAPI(game)
@@ -115,14 +122,21 @@ const addingGame = async () => {
 
   try {
     let gameProps = {
-      id: foundGame.value.slug,
       ...foundGame.value
     }
 
-    await addDoc(libraryRef, gameProps)
+    const docRef = doc(libraryRef, foundGame.value.slug)
+
+    const checkDoc = await getDoc(docRef)
+
+    if(checkDoc.exists()) {
+      throw new Error('Game was already added')
+    }
+
+    await setDoc(docRef, gameProps)
 
   } catch (err) {
-    console.log(err.message)
+    error.value = err.message
   }
 }
 

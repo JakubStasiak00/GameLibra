@@ -103,12 +103,15 @@ import { useRouter } from 'vue-router';
 import { onAuthStateChanged } from '@firebase/auth';
 import { useUserStore } from '../stores/userStore'
 
-const userStore = useUserStore()
+// drawer
+
 const DrawerOpen = ref(false)
 
 const toggleLeftDrawer = () => {
   DrawerOpen.value = !DrawerOpen.value
 }
+
+// router
 
 const router = useRouter()
 
@@ -124,10 +127,13 @@ const goToSettings = () => {
     router.push('/auth/settings')
 }
 
+// store
+
+const userStore = useUserStore()
+
 const handleLogout = () => {
   userStore.logout()
 }
-
 
 onAuthStateChanged(auth, user => {
   if(!user) {

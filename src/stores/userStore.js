@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 export const useUserStore = defineStore('user', () => {
+  
   const user = ref(null)
   const isLogged = ref(false)
   const error = ref('')

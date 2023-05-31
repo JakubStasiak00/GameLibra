@@ -37,11 +37,9 @@ import { ref } from 'vue';
 import {useUserStore} from '../stores/userStore'
 import { useQuasar } from 'quasar'
 
-
-const imageURL = ref('')
-const username = ref('')
-const userStore = useUserStore()
 let currentMessage = 'Changes Saved'
+
+// notification
 
 const $q = useQuasar()
 
@@ -53,6 +51,12 @@ const showNotif = () => {
     position: 'top'
   })
 }
+
+// updating user settings
+
+const imageURL = ref('')
+const username = ref('')
+const userStore = useUserStore()
 
 const handleSettingsChange = async () => {
     console.log(username.value, imageURL.value)
