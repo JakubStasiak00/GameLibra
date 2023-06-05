@@ -28,8 +28,8 @@ export const useUserStore = defineStore('user', () => {
       error.value = ''
       let credentials = await createUserWithEmailAndPassword(auth, email, password)
 
-      await updateProfileInfo(username, 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg')
-
+      await updateProfileData('picture', 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg')
+      await updateProfileData('username', username)
       user.value = credentials
       isLogged.value = true
     } catch (err) {
@@ -54,34 +54,36 @@ export const useUserStore = defineStore('user', () => {
     isLogged.value = true
   }
 
-  async function updateProfileInfo(displayName, photoURL) {
-    error.value = ''
-    
-    let newName = ''
-    let newImage = ''
+  async function updateProfileData(changeParam, paramValue) {
+    switch(changeParam) {
 
-    if(!displayName){
-      newName = user.displayName
-    } else {
-      newName = displayName
-    } 
+      case 'picture': {
+        try {
+          await updateProfile(auth.currentUser,{
+            photoURL: paramValue
+          })
+        } catch(err) {
+          error.value = err.message
+        }
+      }
+      break
 
-    if(!photoURL){
-      newImage = user.photoURL
-    } else {
-      newImage = photoURL
+      case 'username': {
+        try {
+          await updateProfile(auth.currentUser,{
+            displayName: paramValue
+          })
+        } catch(err) {
+          error.value = err.message
+        }
+      }
+      break
+
+      default: {
+        console.log('error', changeParam , 'is not a proper function value')
+      }
     }
+  }
 
-    try {
-      await updateProfile(auth.currentUser, {
-        displayName: newName,
-        photoURL: newImage,
-      });
-      console.log("Profile updated successfully!");
-    } catch (err) {
-      error.value = err.message
-    }
-  };
-
-  return { user, isLogged, error, login, register, logout, updateCredentials, updateProfileInfo }
+  return { user, isLogged, error, login, register, logout, updateCredentials, updateProfileData }
 })

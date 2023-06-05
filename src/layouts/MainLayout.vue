@@ -70,8 +70,8 @@
         src="https://t3.ftcdn.net/jpg/03/57/88/88/360_F_357888819_XvattGqyaKLQtZ9JfW1QVTRVTaLkItug.jpg"
         style="height: 100px">
         <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
-            <img :src="userStore.user.photoURL" v-if="userStore.isLogged">
+          <q-avatar size="60px" class="q-mb-sm">
+            <img :src="userStore.user.photoURL" v-if="userStore.isLogged" class="avatar-image">
           </q-avatar>
           <span class="text-weight-bold q-pl-md" v-if="userStore.isLogged">{{ userStore.user.displayName }}</span>
         </div>
@@ -146,3 +146,10 @@ onAuthStateChanged(auth, user => {
 
 
 </script>
+
+<style>
+.avatar-image {
+  object-fit: cover;
+  object-position: center;
+}
+</style>

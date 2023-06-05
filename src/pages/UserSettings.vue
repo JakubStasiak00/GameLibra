@@ -3,11 +3,14 @@
 
         <h3>User Settings</h3>
 
-        <q-form @submit="handleSettingsChange" class="q-gutter-md">
+        <div class="q-gutter-md">
 
             <q-input filled v-model="imageURL" type="url" label="Avatar URL" hint="Enter URL for your new avatar">
                 <template v-slot:prepend>
                     <q-icon name="mdi-image" />
+                </template>
+                <template v-slot:append>
+                    <q-btn icon="upgrade" class="text-red-6 q-pa-sm" @click="changeUserData('picture', imageURL)" />
                 </template>
             </q-input>
 
@@ -19,13 +22,11 @@
                 <template v-slot:prepend>
                     <q-icon name="person" />
                 </template>
+                <template v-slot:append>
+                    <q-btn icon="upgrade" class="text-red-6 q-pa-sm"  @click="changeUserData('username', username)" />
+                </template>
             </q-input>
-
-            <div class="row justify-center q-pt-md">
-                <q-btn label="Update" type="submit" color="primary" />
-            </div>
-
-        </q-form>
+        </div>
 
         <div class="text-negative q-pt-md text-center" v-if="err"> {{ err }} </div>
 
@@ -34,22 +35,22 @@
 
 <script setup>
 import { ref } from 'vue';
-import {useUserStore} from '../stores/userStore'
+import { useUserStore } from '../stores/userStore'
 import { useQuasar } from 'quasar'
 
-let currentMessage = 'Changes Saved'
+const currentMessage = ref('Changes Saved')
 
 // notification
 
 const $q = useQuasar()
 
 const showNotif = () => {
-  $q.notify({
-    message: currentMessage,
-    color: 'red-6',
-    timeout: 1000,
-    position: 'top'
-  })
+    $q.notify({
+        message: currentMessage,
+        color: 'red-6',
+        timeout: 1000,
+        position: 'top'
+    })
 }
 
 // updating user settings
@@ -58,19 +59,25 @@ const imageURL = ref('')
 const username = ref('')
 const userStore = useUserStore()
 
-const handleSettingsChange = async () => {
-    console.log(username.value, imageURL.value)
-    await userStore.updateProfileInfo(username.value, imageURL.value)
-    const { error } = userStore
+const changeUserData = async (changeType, changeValue) => {
+   await userStore.updateProfileData(changeType, changeValue)
 
-    if(error !== '') {
-        currentMessage = error
+   const { error } = userStore
+
+   if (error !== '') {
+        currentMessage.value = error
     } else {
-        currentMessage = 'Changes Saved'
+        currentMessage.value = 'Changes Saved'
     }
 
-    username.value = ''
-    imageURL.value = ''
+    switch(changeType){
+        case 'username': username.value = ''
+        break
+
+        case 'picture': imageURL.value = ''
+        break
+    }
+    
     showNotif()
 }
 
