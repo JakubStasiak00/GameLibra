@@ -135,7 +135,9 @@ const formatedGames = computed(() => {
   }
 
   if(usersGame.value !== '') {
-    formatGames = formatGames.filter(game => game.name.toLowerCase().includes(usersGame.value.toLowerCase()))
+    formatGames = formatGames
+    .filter(game => game.name.toLowerCase()
+    .includes(usersGame.value.toLowerCase()))
   }
 
   return formatGames
@@ -148,7 +150,9 @@ const handleAddingGame = () => {
 const searchGame = async () => {
   error.value = ''
 
-  const game = gameToFind.value.trim().replace(/\s+/g, "-")
+  const game = gameToFind.value
+  .trim()
+  .replace(/\s+/g, "-")
 
   const response = await useGameAPI(game)
 
