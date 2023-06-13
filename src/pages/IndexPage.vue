@@ -86,12 +86,14 @@ import { useGameAPI } from '../composables/getGameFromAPI'
 import { db } from 'src/firebase/main';
 import { collection, deleteDoc, doc, getDoc, onSnapshot, setDoc } from '@firebase/firestore';
 import { useUserStore } from 'src/stores/userStore';
+import { useGameStore } from 'src/stores/gameStore';
 import { watchEffect } from 'vue';
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
 
 const userStore = useUserStore()
 const $q = useQuasar()
+const gameStore = useGameStore()
 
 const addGames = ref(false)
 const gameToFind = ref('')
@@ -196,6 +198,7 @@ const addingGame = async () => {
     }
 
     await setDoc(docRef, gameProps)
+    await gameStore.setGame(foundGame.value.slug)
 
     addGames.value = false
 
