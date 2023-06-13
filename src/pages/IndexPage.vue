@@ -17,7 +17,7 @@
         </q-card-section>
       </q-card>
 
-      <q-card class="card xs-col-12 sm-col-6 md-col-4 lg-col-3" v-for="game in formatedGames" :key="game" style="width:250px;">
+      <q-card v-if="formatedGames" class="card xs-col-12 sm-col-6 md-col-4 lg-col-3" v-for="game in formatedGames" :key="game" style="width:250px;">
         <q-img :src="game.background_image" cover class="absolute-full" />
         <q-btn @click="deleteGame(game)" flat rounded size="md" class="q-px-sm absolute text-white" icon="close" style="z-index: 10;" />
         <q-card-section>
@@ -225,8 +225,6 @@ watchEffect(async () => {
       snapshot.forEach(doc => {
         games.value.push(doc.data())
       })
-
-      console.log(games.value[0].tags[0].slug)
     })
   }
 })
